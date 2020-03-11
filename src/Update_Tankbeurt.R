@@ -2,6 +2,10 @@ library(tidyverse)
 library(googlesheets)
 library(googlesheets4)
 
+source("./src/Update_Level.r")
+
+update_level()
+
 Data <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Mazout", range = "V10:V11")
 avg <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Mazout", range = "V2:V3")
 
