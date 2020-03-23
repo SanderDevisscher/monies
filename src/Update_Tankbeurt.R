@@ -45,10 +45,16 @@ repeat{
              Dag2 = format(Dag, "%d"),
              Datum = as.Date(paste0(jaar, "-", Maand, "-", Dag2))) 
     Verbruik_sim$Datum <- strptime(as.character(Verbruik_sim$Datum), "%Y-%m-%d", tz = "UTC")
+    Verbruik_sim$Datum <- as.Date(paste0(jaar,"-",format(Verbruik_sim$Datum, "%m"),"-",format(Verbruik_sim$Datum, "%d")))
     verbruik <- Verbruik_sim$Verbruik[Verbruik_sim$Datum == new_date]
     verbruik <- verbruik[1]
     
+    if(format(new_date, "%m-%d") == "02-29"){
+      new_date <- new_date + 24*3600 
+    }
+    
     if(is.na(verbruik)){
+      jaar <- format(new_date, "%Y")
       verbruik <- avg
     }
     
