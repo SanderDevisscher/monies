@@ -50,7 +50,7 @@ repeat{
     verbruik <- verbruik[1]
     
     if(format(new_date, "%m-%d") == "02-29"){
-      new_date <- new_date + 24*3600 
+      verbruik <- avg
     }
     
     if(is.na(verbruik)){
@@ -82,6 +82,9 @@ repeat{
 log$datum2 <- as.Date.POSIXct(log$datum, tz = "UTC", origin = "1900-01-01")
 #Average of 10 iterations
 log2 <- log %>% 
-  summarise(mean = mean(datum2))
+  summarise(mean = median(datum2),
+            max = max(datum2),
+            min = min(datum2),
+            diff = paste0(difftime(max, min, "days"), " dagen"))
 sheets_write(log2, sheet = "Update_Mazout", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
 
