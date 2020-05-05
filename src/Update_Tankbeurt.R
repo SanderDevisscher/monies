@@ -69,6 +69,10 @@ repeat{
   
   
   new_date <- as.data.frame(new_date)
+  #maintain structure
+  new_date$max <- ""
+  new_date$min <- ""
+  new_date$diff <- "running"
   #Trigger randomisation in gsheets
   sheets_write(new_date, sheet = "Update_Mazout", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
   i  <- i + 1
