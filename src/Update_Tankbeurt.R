@@ -1,3 +1,4 @@
+library(magrittr)
 library(tidyverse)
 library(googlesheets)
 library(googlesheets4)
