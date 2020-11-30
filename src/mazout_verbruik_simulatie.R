@@ -15,6 +15,9 @@ usage_sim <- current_usage
 Verbruik_sim <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Pivot Table 2", range = "J:P", col_types = "Tnnnnnn")
 
 verbruik_simulatie <- data.frame(1,2)
+verbruik_simulatie <- verbruik_simulatie %>% 
+  mutate(X1 = as.character(X1))
+
 colnames(verbruik_simulatie) <- c("datum", "usage_sim")
 
 while(new_date <= final_date){
@@ -30,10 +33,14 @@ while(new_date <= final_date){
   verbruik <- verbruik[1]
   usage_sim <- usage_sim + verbruik
   verbruik_simulatie <- verbruik_simulatie %>% 
-    filter(datum != 1) %>% 
-    add_row(datum = format(as.POSIXct.Date(new_date),"%Y-%m-%d"), usage_sim = usage_sim) 
+    filter(usage_sim != 2) 
+  
+  new_date2 <- as.character(new_date)
+  
+  verbruik_simulatie <- verbruik_simulatie %>% 
+    add_row(datum = new_date2, usage_sim = usage_sim) 
 }
 
 sheet_name <- paste0("mazout_verbruik_sim_", current_year)
 
-sheets_write(verbruik_simulatie, sheet = sheet_name, ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
+sheet_write(verbruik_simulatie, sheet = sheet_name, ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")

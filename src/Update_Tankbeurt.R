@@ -75,7 +75,7 @@ repeat{
   new_date$min <- ""
   new_date$diff <- "running"
   #Trigger randomisation in gsheets
-  sheets_write(new_date, sheet = "Update_Mazout", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
+  sheet_write(new_date, sheet = "Update_Mazout", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
   i  <- i + 1
   
   if (i == 11){
@@ -91,5 +91,5 @@ log2 <- log %>%
             max = max(datum2),
             min = min(datum2),
             diff = paste0(difftime(max, min, "days"), " dagen"))
-sheets_write(log2, sheet = "Update_Mazout", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
+sheet_write(log2, sheet = "Update_Mazout", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
 

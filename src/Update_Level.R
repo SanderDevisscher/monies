@@ -16,6 +16,6 @@ Update_value <- Data_subset %>%
   filter(dagen_geleden == max(dagen_geleden)) %>% 
   select(Over)
 
-sheets_write(Update_value, sheet = "Update_Level", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
+sheet_write(Update_value, sheet = "Update_Level", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
   
 }
