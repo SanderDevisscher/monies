@@ -2,6 +2,9 @@ library(tidyverse)
 library(googlesheets)
 library(googlesheets4)
 
+bo_email <- Sys.getenv("bo_email")
+gs4_auth(email = bo_email)
+
 Annual_Use <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Pivot Table 3", range = "A1:B10")
 
 current_year <- format(Sys.Date(), "%Y")

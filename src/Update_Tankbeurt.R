@@ -1,7 +1,8 @@
-library(magrittr)
 library(tidyverse)
-library(googlesheets)
 library(googlesheets4)
+
+bo_email <- Sys.getenv("bo_email")
+gs4_auth(email = bo_email)
 
 source("./src/Update_Level.r")
 
@@ -73,7 +74,7 @@ repeat{
   #maintain structure
   new_date$max <- ""
   new_date$min <- ""
-  new_date$diff <- "running"
+  new_date$diff <- paste0("running iteration number: [",i+1,"]")
   #Trigger randomisation in gsheets
   sheet_write(new_date, sheet = "Update_Mazout", ss = "1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI")
   i  <- i + 1

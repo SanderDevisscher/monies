@@ -3,6 +3,9 @@ update_level <- function(){
 library(tidyverse)
 library(googlesheets)
 library(googlesheets4)
+  
+  bo_email <- Sys.getenv("bo_email")
+  gs4_auth(email = bo_email)
 
 Data <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Mazout", range = "C7:E1000")
 
