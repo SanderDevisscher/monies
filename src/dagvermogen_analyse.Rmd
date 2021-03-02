@@ -1,0 +1,71 @@
+```{r}
+library(tidyverse)
+library(googlesheets4)
+```
+
+```{r}
+bo_email <- Sys.getenv("bo_email")
+gs4_auth(email = bo_email)
+```
+
+```{r}
+Solar_intensity <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Sheet32")
+
+Solar_intensity <- Solar_intensity %>% 
+  mutate(uur = format(uur, "%H:%M"))
+```
+
+```{r}
+inputspath <- "./inputs/dagvermogen/"
+new_files <- dir(inputspath)
+
+i <- 5
+j <- 0
+k <- 0
+
+for(f in new_files){
+  datum <- str_sub(f, 25, 34)
+  fn <- paste0(inputspath, f)
+  temp <- read_delim(fn, ";", escape_double = FALSE, 
+                     col_types = cols(X1 = col_character(), 
+                                      `Devisscher - Leopoldsburg - BE / Vermogen / Gemiddelde waarden  [kW]0` = col_number()), 
+                     na = "0", trim_ws = TRUE)
+  
+  names(temp)[2] <- datum
+  temp <- temp %>% 
+    select(2) 
+  
+  
+  if(i > 26){
+    j <- floor(i/26)
+    k <- i - j*26 + 1 
+    a <- paste0(LETTERS[j], LETTERS[k],1)
+  }else{
+    a <- paste0(LETTERS[i], 1)
+  }
+  print(paste0("i: ", i))
+  print(paste0("j: ", j))
+  print(paste0("k: ", k))
+  print(a)
+  
+  test <- range_read("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", 
+                     sheet = "Sheet32", 
+                     range = a)
+  
+  if(colnames(test) == colnames(temp)){
+    print("data allready in sheet")
+  }else{
+    range_write("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", 
+                sheet = "Sheet32", 
+                data = temp,
+                range = a, 
+                col_names = TRUE)
+  }
+  
+  i <- i + 1
+}
+```
+
+
+
+
