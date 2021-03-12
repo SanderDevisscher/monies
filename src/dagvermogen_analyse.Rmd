@@ -19,7 +19,7 @@ Solar_intensity <- Solar_intensity %>%
 inputspath <- "./inputs/dagvermogen/"
 new_files <- dir(inputspath)
 
-i <- 5
+i <- 6
 j <- 0
 k <- 0
 
@@ -35,7 +35,6 @@ for(f in new_files){
   temp <- temp %>% 
     select(2) 
   
-  
   if(i > 26){
     j <- floor(i/26)
     k <- i - j*26 + 1 
@@ -48,11 +47,9 @@ for(f in new_files){
   print(paste0("k: ", k))
   print(a)
   
-  test <- range_read("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", 
-                     sheet = "Sheet32", 
-                     range = a)
+  print(datum)
   
-  if(colnames(test) == colnames(temp)){
+  if(colnames(temp) %in% names(Solar_intensity)){
     print("data allready in sheet")
   }else{
     range_write("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", 
@@ -65,7 +62,3 @@ for(f in new_files){
   i <- i + 1
 }
 ```
-
-
-
-
