@@ -1,7 +1,6 @@
 update_level <- function(){
 
 library(tidyverse)
-library(googlesheets)
 library(googlesheets4)
   
   bo_email <- Sys.getenv("bo_email")
