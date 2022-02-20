@@ -1,5 +1,4 @@
 library(tidyverse)
-library(googlesheets)
 library(googlesheets4)
 
 bo_email <- Sys.getenv("bo_email")
