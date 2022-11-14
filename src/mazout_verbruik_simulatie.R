@@ -1,10 +1,16 @@
-library(tidyverse)
+# Setup ####
+## Libraries ####
 library(googlesheets4)
+library(tidyverse)
 
+## Auth ####
 bo_email <- Sys.getenv("bo_email")
 gs4_auth(email = bo_email)
 
-Annual_Use <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Pivot Table 3", range = "A1:B10")
+# Calculations ####
+## Get Data ####
+Annual_Use <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", 
+                         sheet = "Pivot Table 3")
 
 current_year <- format(Sys.Date(), "%Y")
 
@@ -14,7 +20,12 @@ new_date <- today
 final_date <- paste0(current_year, "-12-31")
 usage_sim <- current_usage
 
-Verbruik_sim <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Pivot Table 2", range = "J:P", col_types = "Tnnnnnn")
+Verbruik_sim <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", 
+                           sheet = "Pivot Table 2", 
+                           range = "J1:P367", 
+                           col_types = "cnnnnnn") %>% 
+  mutate(Dag = as.Date(format(as.Date(Dag, "%m-%d"), "%Y-%m-%d"))) %>% 
+  filter(!is.na(Dag))
 
 verbruik_simulatie <- data.frame(1,2)
 verbruik_simulatie <- verbruik_simulatie %>% 

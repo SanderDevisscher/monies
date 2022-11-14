@@ -24,7 +24,12 @@ log <- data.frame(1:10)
 colnames(log) <- "datum"
 
 repeat{
-  Verbruik_sim <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", sheet = "Pivot Table 2", range = "J:P", col_types = "Tnnnnnn")
+  Verbruik_sim <- read_sheet("1YLYWYwPsXXAeTEFz1Mpi2tV6J13sXUveIIKY8HBDncI", 
+                             sheet = "Pivot Table 2", 
+                             range = "J1:P367", 
+                             col_types = "cnnnnnn") %>% 
+    mutate(Dag = as.Date(format(as.Date(Dag, "%m-%d"), "%Y-%m-%d"))) %>% 
+    filter(!is.na(Dag))
   
   #Verbruik_sim <- Verbruik_sim %>% 
    # mutate(Maand = format(Dag, "%m"),
