@@ -1,2 +1,0 @@
-git lfs track "*.shp"
-*.shp filter=lfs diff=lfs merge=lfs -text
